@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+	<title>Meanest Tweet</title>
+</head>
+<body>
+<form method="POST" action="/mean/new">
+    <input name="search_text" id="search_text" placeholder="enter a search term" />
+	{% csrf_token %}
+</form>
+</body>
+</html>
