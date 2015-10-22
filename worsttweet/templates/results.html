@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+	<title>Search Results</title>
+</head>
+<body>
+<h1> Search results for {{ search_term }}.</h1>
+	<h1>@{{ tweet.user.screen_name }} says:</h1>
+	<img src="{{ tweet.user.profile_image_url }}">
+	<h2>{{ tweet.text }}</h2>
+	<p>This lovely person has {{ tweet.user.followers_count }} followers.</p>
+	<form method="POST" action="/mean/addfav">
+		<input hidden name="tweet_id" value="{{ tweet.id }}"></input>
+		<input hidden name="tweet_text" value="{{ tweet.text }}"></input>
+		<input hidden name="twitter_user_id" value="{{ tweet.user.id }}"></input>
+		<input hidden name="search_term" value="{{ search_term }}"></input>
+		<button>Add to Favorites</button> 
+	{% csrf_token %}
+	</form>
+<a href={% url "view_random" %}><br>View a random favorite</a>
+</body>

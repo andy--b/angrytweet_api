@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+	<title>Top Tweets</title>
+</head>
+<body>
+<h1>Top tweets of all time.</h1>
+{% for top_tweet, top_user in top_tweets%}
+<h1>{{ forloop.counter }}. @{{ top_user.screen_name }}
+ had this to say about {{ top_tweet.search_term }}:</h1>
+<img src="{{ top_user.profile_image_url }}">
+<p>{{ top_tweet.tweet_text }}</p>
+<p>This lovely person has {{ top_user.followers_count }} followers.</p>
+<p>{{ top_tweet.upvote_count }} people have liked this tweet</p>
+{% endfor %}
+
+<a href={% url "view_random" %}><br>View a random favorite</a>
+</body>
+</html>

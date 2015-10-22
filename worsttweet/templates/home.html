@@ -5,9 +5,11 @@
 	<title>Meanest Tweet</title>
 </head>
 <body>
-<form method="POST" action="/mean/new">
+<h1>Enter a search term!</h1>
+<form method="GET" action="/mean/new">
     <input name="search_text" id="search_text" placeholder="enter a search term" />
 	{% csrf_token %}
 </form>
+<a href={% url "view_random" %}><br>View a random favorite</a>
 </body>
 </html>
