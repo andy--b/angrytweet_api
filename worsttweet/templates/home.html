@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Enter a search term!</h1>
-<form method="GET" action="/mean/new">
+<form method="GET" action={% url "new_search" %}>
     <input name="search_text" id="search_text" placeholder="enter a search term" />
 	{% csrf_token %}
 </form>

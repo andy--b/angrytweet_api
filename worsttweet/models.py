@@ -15,4 +15,7 @@ class FavoriteWorst(models.Model):
 	tweet_id = models.CharField(max_length=50, blank=True)
 	tweet_text = models.CharField(max_length=300)
 	twitter_user_id = models.CharField(max_length=50, blank=True)
+	twitter_screen_name = models.CharField(max_length=50, blank=True)
 	upvote_count = models.IntegerField(default=1)
+	user_followers_count = models.IntegerField(default=1)
+	user_profile_pic_url = models.CharField(max_length=100, default="")

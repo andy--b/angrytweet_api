@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+	<title>Favorite Tweet</title>
+</head>
+<body>
+<img src="{{ profile_pic }}">
+<h1>Your search result for {{ search_term }} has been added to the favorites list.</h1>
+<h2>@{{twitter_handle}} said:
+<p>{{ tweet_text }}</p>
+{% if upvote_count == 1 %}
+<p>You are the first person to like this post!</p>
+{% else %}
+<p>{{ upvote_count }} people have liked this same tweet!</p>
+{% endif %}
+<a href={% url "view_random" %}><br>View a random favorite</a>
+</body>
+</html>

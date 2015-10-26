@@ -1,9 +1,8 @@
 import re
 import tweepy
-from random import randint
+from random import shuffle
 from tweepy import OAuthHandler
 from secret_keys import *
-
 							
 def run_query(search_term, extreme_words_string, api):
 	query = search_term + ' -RT AND ' + extreme_words_string
@@ -54,10 +53,16 @@ def extreme_tweets(search_term):
 
 	extreme_ids = find_most_extreme(data, 
 									extreme_words + [key_extreme_word])
-	# Select a random tweet from the top 5
-	selected_id = [extreme_ids[randint(0,4)]]
-	selected_tweet = None
+	selected_tweets = []
 	for tweet in data:
-		if tweet.id in selected_id:
-			selected_tweet = tweet
-	return selected_tweet
+		if tweet.id in extreme_ids:
+			selected_tweets.append({
+				'user_screen_name': tweet.user.screen_name,
+				'user_profile_image_url': tweet.user.profile_image_url,
+				'text': tweet.text,
+				'user_followers_count': tweet.user.followers_count,
+				'id': tweet.id,
+				'user_id': tweet.user.id,
+				'user_name': tweet.user.name})
+	shuffle(selected_tweets)
+	return selected_tweets

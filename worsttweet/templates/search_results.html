@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+	<title>Search Results</title>
+</head>
+<body>
+	{% if favorite_button_visible == "hidden" %}
+		<h1>Your search result for {{ search_term }} has been added to the favorites list.</h1>
+		{% if upvote_count == 1 %}
+		<p>You are the first person to like this post!</p>
+		{% else %}
+		<p>{{ upvote_count }} people have liked this same tweet!</p>
+		{% endif %}
+	{% endif %}
+	<img src="{{ tweet.user_profile_image_url }}">
+<h1> Search results for {{ search_term }}.</h1>
+	<h1>@{{ tweet.user_screen_name }} says:</h1>
+	<h2>{{ tweet.text }}</h2>
+	<p>This {{ nice_term }} has {{ tweet.user_followers_count }} followers.</p>
+	<form method="POST" action="/mean/addfav">
+		<input hidden name="tweet_id" value="{{ tweet.id }}"></input>
+		<input hidden name="tweet_text" value="{{ tweet.text }}"></input>
+		<input hidden name="twitter_user_id" value="{{ tweet.user_id }}"></input>
+		<input hidden name="search_term" value="{{ search_term }}"></input>
+		<input hidden name="twitter_screen_name" 
+		value="{{ tweet.user_screen_name }}"></input>
+		<input hidden name="user_profile_pic_url" 
+		value="{{ tweet.user_profile_image_url }}"></input>
+		<input hidden name="user_followers_count" 
+		value="{{ tweet.user_followers_count }}"></input>
+	{% if favorite_button_visible == "visible" %}
+	<button>Add to Favorites</button>
+	{% endif %}
+	{% csrf_token %}
+	</form>
+	<form method="GET" action='.'>
+		<button visibility: {{ next_button_visible }}>View Next</button>
+		<input hidden name="next_prev" value="next"></input>
+	</form>
+	<form method="GET" action='.'>
+		<button visibility: {{ prev_button_visible }}>View Previous</button>
+		<input hidden name="next_prev" value="prev"></input>
+	</form>
+	<a href={% url "view_random" %}><br>View a random favorite</a>
+</body>
