@@ -26,7 +26,7 @@ def new_search(request):
 	formatted_url = re.sub(r'\W', '', search_term.replace(' ', '_'))	
 	request.session['_tweets'] = extreme_tweets(formatted_url.replace('_', ' '))
 	request.session['_tweet_index'] = 0
-	request.session['_search_term'] = formatted_url
+	request.session['_search_term'] = formatted_url.replace('_', ' ')
 	request.session['_favorite_indices'] = []
 	return redirect('/mean/search/%s/' % (formatted_url,))
 
@@ -38,10 +38,10 @@ def search_result(request, formatted_url):
 # Based on the URL.
 	search_term = formatted_url.replace('_', ' ')
 	try:
-		if formatted_url != request.session['_search_term']:
-			request.session['_tweets'] = extreme_tweets(formatted_url.replace('_', ' '))
+		if search_term != request.session['_search_term']:
+			request.session['_tweets'] = extreme_tweets(search_term)
 			request.session['_tweet_index'] = 0
-			request.session['_search_term'] = formatted_url.replace('_',' ')
+			request.session['_search_term'] = search_term
 			request.session['_favorite_indices'] = []
 			
 	except:
@@ -120,19 +120,6 @@ def add_favorite(request):
 			)
 	request.session['_favorite_indices'] += [request.session['_tweet_index']]
 	return redirect('/mean/search/%s/' % term)
-	
-def favorited_search(request, id, term):
-# View sent after user favorites a tweet
-	tweet = FavoriteWorst.objects.get(tweet_id=id)
-	user_info = get_user_info(tweet.twitter_user_id)
-	to_render = {'profile_pic': user_info.profile_image_url,
-				'tweet_text': tweet.tweet_text,
-				'upvote_count': tweet.upvote_count,
-				'twitter_handle': user_info.screen_name,
-				'search_term': term}
-	return render(request,
-				  'favorited_search.html',
-				  to_render)
 				  
 def view_random(request):
 # Displays a random tweet from DB. Gets user's current profile pic and
@@ -145,7 +132,6 @@ def view_random(request):
 		new_upvote_count = ''
 		hidden = 'hidden'
 	random_tweet = FavoriteWorst.objects.random()
-	user_info = get_user_info(random_tweet.twitter_user_id)
 	return render(request,
 				  'random_favorite.html',
 				  {'random_tweet': random_tweet,
@@ -172,17 +158,8 @@ def vote_random(request, vote):
 				   
 def view_top(request):
 # Displays top 10 tweets from DB
-	try:
-		top_user_ids = request.session['_top_user_ids']
-		top_tweets = request.session['_top_tweets']
-	except KeyError:
-		top_tweets=FavoriteWorst.objects.order_by('-upvote_count')[:10]
-		# request.session['_top_tweets'] = top_tweets
-		top_user_ids = [status.twitter_user_id for status in top_tweets]
-		# request.session['_top_user_ids'] = top_user_ids
-	users = get_multi_user_info(top_user_ids)
-	list = zip(top_tweets, users)
+	top_tweets=FavoriteWorst.objects.order_by('-upvote_count')[:10]
 	return render(request,
 				  'top_tweets.html',
-				  {'top_tweets': list})
+				  {'top_tweets': top_tweets})
 				  

@@ -7,7 +7,7 @@ from secret_keys import *
 def run_query(search_term, extreme_words_string, api):
 	query = search_term + ' -RT AND ' + extreme_words_string
 	results = [
-		status for status in tweepy.Cursor(api.search, q=query).items(25)]
+		status for status in tweepy.Cursor(api.search, q=query).items(50)]
 	return results 
 				
 def find_most_extreme(data, extreme_words):
