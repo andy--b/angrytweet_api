@@ -9,7 +9,6 @@ from worsttweet.models import FavoriteWorst
 # User modules
 from nice_terms import nice_term
 from find_extreme_tweets import extreme_tweets
-from get_user_info import get_user_info, get_multi_user_info
 
 def insufficient(request):
 # Return this page if search term doesn't generate any results
@@ -28,6 +27,7 @@ def new_search(request):
 	request.session['_tweet_index'] = 0
 	request.session['_search_term'] = formatted_url.replace('_', ' ')
 	request.session['_favorite_indices'] = []
+	request.session['_newly_favorited'] = False
 	return redirect('/mean/search/%s/' % (formatted_url,))
 
 	
@@ -42,14 +42,17 @@ def search_result(request, formatted_url):
 			request.session['_tweets'] = extreme_tweets(search_term)
 			request.session['_tweet_index'] = 0
 			request.session['_search_term'] = search_term
+			request.session['_is_favorite'] = False
 			request.session['_favorite_indices'] = []
+			request.session['_newly_favorited'] = False
 			
 	except:
-		request.session['_tweets'] = extreme_tweets(formatted_url.replace('_', ' '))
+		request.session['_tweets'] = extreme_tweets(search_term)
 		request.session['_tweet_index'] = 0
-		request.session['_search_term'] = formatted_url.replace('_',' ')
+		request.session['_search_term'] = search_term
 		request.session['_is_favorite'] = False
 		request.session['_favorite_indices'] = []
+		request.session['_newly_favorited'] = False
 	tweets = request.session['_tweets']	
 	if len(tweets) == 0:
 		return redirect('/insufficient/')
@@ -68,25 +71,27 @@ def search_result(request, formatted_url):
 	except:
 		favorite_count = 0
 	if tweet_index in request.session['_favorite_indices']:
-		favorite_button = "hidden"
+		favorite_button = False
 	else:
-		favorite_button = "visible"	
+		favorite_button = True	
 	# Rules for displaying "next/prev" buttons
 	if request.session['_tweet_index'] + 1 < len(tweets):
-		next_button = "visible"
+		next_button = True
 	else:
-		next_button = "hidden"
+		next_button = False
 	if request.session['_tweet_index'] > 0:
-		prev_button = "visible"
+		prev_button = True
 	else:
-		prev_button = "hidden"
+		prev_button = False
 	to_render = {'search_term': search_term,
 				 'tweet': tweets[tweet_index],
 				 'next_button_visible': next_button,
 				 'prev_button_visible': prev_button,
 				 'nice_term': nice_term(),
 				 'favorite_button_visible': favorite_button,
-				 'upvote_count': favorite_count} 
+				 'upvote_count': favorite_count,
+				 'newly_favorited': request.session['_newly_favorited']}
+	request.session['_newly_favorited'] = False
 	return render(request, 
 				  'search_results.html', 
 				  to_render,)
@@ -100,6 +105,7 @@ def add_favorite(request):
 	tw_screen_name = request.POST["twitter_screen_name"]
 	tw_profile_pic_url = request.POST['user_profile_pic_url']
 	tw_user_followers = request.POST['user_followers_count']
+	request.session['_newly_favorited'] = True
 	try:
 	# If someone else has already favorited this, don't add to DB,
 	# just increment score. Limit on this is 5 to prevent "gaming" the system

@@ -5,7 +5,7 @@
 	<title>Search Results</title>
 </head>
 <body>
-	{% if favorite_button_visible == "hidden" %}
+	{% if newly_favorited %}
 		<h1>This search result for {{ search_term }} has been added to the favorites list.</h1>
 		{% if upvote_count == 1 %}
 		<p>You are the first person to like this post!</p>
@@ -29,18 +29,23 @@
 		value="{{ tweet.user_profile_image_url }}"></input>
 		<input hidden name="user_followers_count" 
 		value="{{ tweet.user_followers_count }}"></input>
-	{% if favorite_button_visible == "visible" %}
-	<button>Add to Favorites</button>
+	{% if favorite_button_visible %}
+		<button>Add to Favorites</button>
 	{% endif %}
 	{% csrf_token %}
 	</form>
 	<form method="GET" action='.'>
-		<button visibility: {{ next_button_visible }}>View Next</button>
+		{% if next_button_visible %}
+			<button>View Next</button>
+		{% endif %}
 		<input hidden name="next_prev" value="next"></input>
 	</form>
 	<form method="GET" action='.'>
-		<button visibility: {{ prev_button_visible }}>View Previous</button>
+		{% if prev_button_visible %}
+			<button>View Previous</button>
+		{% endif %}
 		<input hidden name="next_prev" value="prev"></input>
 	</form>
 	<a href={% url "view_random" %}><br>View a random favorite</a>
+	<a href={% url "view_top" %}><br>View the top tweets of all time</a>
 </body>
