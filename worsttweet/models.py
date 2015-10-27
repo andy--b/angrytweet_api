@@ -1,12 +1,17 @@
 from django.db import models
 from django.db.models.aggregates import Count
-from random import randint
+from random import randint, sample
 
+# Returns a specified number of random tweets
 class TweetRandomizer(models.Manager):
-    def random(self):
-        count = self.aggregate(count=Count('id'))['count']
-        random_index = randint(0, count - 1)
-        return self.all()[random_index]
+	def random(self, sample_size):
+		count = self.aggregate(count=Count('id'))['count']
+		random_index = sample(range(0, count), sample_size)
+		tweet_list = []
+		for i in random_index:
+			tweet_list.append(self.all()[i])
+		return tweet_list
+			
 		
 class FavoriteWorst(models.Model):
 	objects = TweetRandomizer()

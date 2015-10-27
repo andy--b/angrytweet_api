@@ -4,6 +4,8 @@ import re
 # Django and models
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core import serializers
+from rest_framework.renderers import JSONRenderer
 from worsttweet.models import FavoriteWorst
 
 # User modules
@@ -137,7 +139,7 @@ def view_random(request):
 	except KeyError:
 		new_upvote_count = ''
 		hidden = 'hidden'
-	random_tweet = FavoriteWorst.objects.random()
+	random_tweet = FavoriteWorst.objects.random(1)[0]
 	return render(request,
 				  'random_favorite.html',
 				  {'random_tweet': random_tweet,
@@ -160,7 +162,7 @@ def vote_random(request, vote):
 		existing_tweet.delete()
 	else:
 		existing_tweet.save()
-	return HttpResponseRedirect("/mean/viewfav")
+	return HttpResponseRedirect("/mean/fav")
 				   
 def view_top(request):
 # Displays top 10 tweets from DB
@@ -168,4 +170,18 @@ def view_top(request):
 	return render(request,
 				  'top_tweets.html',
 				  {'top_tweets': top_tweets})
+		  
+def api_random(request, sample_size=1):
+# API call to get random tweets (up to 10)
+	# Limit sample size to 10
+	adj_sample_size = min([10, int(sample_size)])
+	random_tweets = serializers.serialize("json",
+		FavoriteWorst.objects.random(adj_sample_size))
+	return HttpResponse(random_tweets)
+	
+def api_top(request):
+# API call to get top 10 tweets all-time
+	top_tweets = serializers.serialize("json",
+		FavoriteWorst.objects.order_by('-upvote_count')[:10])
+	return HttpResponse(top_tweets)
 				  
