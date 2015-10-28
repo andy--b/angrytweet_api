@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.aggregates import Count
-from random import randint, sample
+from random import sample
 
 # Returns a specified number of random tweets
 class TweetRandomizer(models.Manager):
@@ -24,3 +24,4 @@ class FavoriteWorst(models.Model):
 	upvote_count = models.IntegerField(default=1)
 	user_followers_count = models.IntegerField(default=1)
 	user_profile_pic_url = models.CharField(max_length=100, default="")
+	twitter_user_name = models.CharField(max_length=80, blank=True)

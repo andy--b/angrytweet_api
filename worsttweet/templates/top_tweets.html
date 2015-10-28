@@ -1,21 +1,48 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html lang='en'>
-<head>
-	<title>Top Tweets</title>
-</head>
-<body>
-<h1>Top tweets of all time.</h1>
-{% for top_tweet in top_tweets%}
-<h1>{{ forloop.counter }}. @{{ top_tweet.twitter_screen_name }}
- had this to say about {{ top_tweet.search_term }}:</h1>
-<img src="{{ top_tweet.user_profile_pic_url }}">
-<p>{{ top_tweet.tweet_text }}</p>
-<p>This lovely person has {{ top_tweet.user_followers_count }} followers.</p>
-<p>{{ top_tweet.upvote_count }} people have liked this tweet</p>
+{% block title %}
+<title>Top Tweets of All Time</title>
+{% endblock %}
+
+{% block page_content %}
+<div align="center" class="page-header">
+	<h1>TOP TWEETS OF ALL TIME</h1>
+</div>
+{% for top_tweet, nice_term in top_tweets%}
+  <div class="container">
+	<div class="jumbotron">
+	  <div class="container" align="center">
+		<h2>
+		  <div class="rank-number">{{ forloop.counter }}.</div>
+			<a href = "http://twitter.com/{{ top_tweet.twitter_screen_name }}/">
+				@{{ top_tweet.twitter_screen_name }}</a>
+				had this to say about 
+		  <div class="top-search-term">{{ top_tweet.search_term }}</div>:
+		</h2>
+		  <blockquote class="twitter-tweet">
+			<div class="tweet-pic">
+			  <img src="{{ top_tweet.user_profile_pic_url }}" align="left">
+			</div>
+			<div class="tweet-user-name" align="left">
+			  <h3>{{ top_tweet.twitter_user_name }}</h3>
+			</div>
+			<div class="twitter-screen-name" align="left">
+			<a  href="http://twitter.com/statuses/{{ top_tweet.tweet_id }}"
+			class="tweet-twitter-handle">
+			  <p>@{{ top_tweet.twitter_screen_name }} </p>
+			</a>
+			</div>
+			<div class="tweet-text">
+			  <p>{{ top_tweet.tweet_text }}</p>
+			</div>
+			<div class="tweet-followers">
+			  <p>This {{ nice_term }} has <b>{{ top_tweet.user_followers_count }} </b>
+				followers.</p>
+			</div>
+		  </blockquote>
+		  <p>This tweet has a score of {{ top_tweet.upvote_count }}</p>
+	  </div>
+	</div>
+  </div>
 {% endfor %}
-
-<a href={% url "view_random" %}><br>View a random favorite</a>
-<a href={% url "home" %}><br>Return Home</a>
-</body>
-</html>
+{% endblock %}

@@ -1,6 +1,6 @@
-from random import randint
+from random import sample
 
-def nice_term():
+def nice_term(sample_size=1):
 	terms = ['lovely person', 'absolute genius', 'proponent of world peace',
 		'miracle worker', 'TIME Magazine Person of the Year candidate',
 		'Nobel Laureate', 'disciple of Mother Teresa',
@@ -10,4 +10,8 @@ def nice_term():
 		'representative of the same species as you',
 		'eligible voter', 'Copernican groundbreaker',
 		'future president' ]
-	return terms[randint(0, len(terms)-1)]
+	random_index = sample(range(0, len(terms)), sample_size)
+	nice_list = []
+	for i in random_index:
+		nice_list.append(terms[i])
+	return nice_list

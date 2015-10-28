@@ -11,12 +11,12 @@
 <h2>@{{ random_tweet.twitter_screen_name }} said:
 <p>{{ random_tweet.tweet_text }}</p>
 <p>This {{ nice_term }} has {{ random_tweet.user_followers_count }} followers.</p>
-<form method="POST" action="/mean/viewfav/upvote">
+<form method="POST" action="/mean/viewfav/upvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
 	<button>Like this!</button> 
 {% csrf_token %}
 </form>
-<form method="POST" action="/mean/viewfav/downvote">
+<form method="POST" action="/mean/viewfav/downvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
 	<button>Dislike this!</button> 
 {% csrf_token %}

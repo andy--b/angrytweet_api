@@ -89,7 +89,7 @@ def search_result(request, formatted_url):
 				 'tweet': tweets[tweet_index],
 				 'next_button_visible': next_button,
 				 'prev_button_visible': prev_button,
-				 'nice_term': nice_term(),
+				 'nice_term': nice_term()[0],
 				 'favorite_button_visible': favorite_button,
 				 'upvote_count': favorite_count,
 				 'newly_favorited': request.session['_newly_favorited']}
@@ -107,6 +107,7 @@ def add_favorite(request):
 	tw_screen_name = request.POST["twitter_screen_name"]
 	tw_profile_pic_url = request.POST['user_profile_pic_url']
 	tw_user_followers = request.POST['user_followers_count']
+	tw_user_name = request.POST['twitter_user_name']
 	request.session['_newly_favorited'] = True
 	try:
 	# If someone else has already favorited this, don't add to DB,
@@ -125,6 +126,7 @@ def add_favorite(request):
 			twitter_screen_name = tw_screen_name,
 			user_followers_count = tw_user_followers,
 			user_profile_pic_url = tw_profile_pic_url,
+			twitter_user_name = tw_user_name,
 			)
 	request.session['_favorite_indices'] += [request.session['_tweet_index']]
 	return redirect('/mean/search/%s/' % term)
@@ -162,14 +164,16 @@ def vote_random(request, vote):
 		existing_tweet.delete()
 	else:
 		existing_tweet.save()
-	return HttpResponseRedirect("/mean/fav")
+	return HttpResponseRedirect("/mean/fav/")
 				   
 def view_top(request):
 # Displays top 10 tweets from DB
 	top_tweets=FavoriteWorst.objects.order_by('-upvote_count')[:10]
+	nt = nice_term(10)
+	to_render = zip(top_tweets, nt)
 	return render(request,
 				  'top_tweets.html',
-				  {'top_tweets': top_tweets})
+				  {'top_tweets': to_render})
 		  
 def api_random(request, sample_size=1):
 # API call to get random tweets (up to 10)

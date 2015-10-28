@@ -18,13 +18,14 @@
 	<h1>@{{ tweet.user_screen_name }} says:</h1>
 	<h2>{{ tweet.text }}</h2>
 	<p>This {{ nice_term }} has {{ tweet.user_followers_count }} followers.</p>
-	<form method="POST" action="/mean/addfav">
+	<form method="POST" action="/mean/addfav/">
 		<input hidden name="tweet_id" value="{{ tweet.id }}"></input>
 		<input hidden name="tweet_text" value="{{ tweet.text }}"></input>
 		<input hidden name="twitter_user_id" value="{{ tweet.user_id }}"></input>
 		<input hidden name="search_term" value="{{ search_term }}"></input>
 		<input hidden name="twitter_screen_name" 
 		value="{{ tweet.user_screen_name }}"></input>
+		<input hidden name="twitter_user_name" value="{{ tweet.user_name }}"></input>
 		<input hidden name="user_profile_pic_url" 
 		value="{{ tweet.user_profile_image_url }}"></input>
 		<input hidden name="user_followers_count" 
