@@ -137,17 +137,17 @@ def view_random(request):
 	try:
 		new_upvote_count = request.session['_upvote_count']
 		del request.session['_upvote_count']
-		hidden = 'visible'
+		visible = True
 	except KeyError:
 		new_upvote_count = ''
-		hidden = 'hidden'
+		visible = False
 	random_tweet = FavoriteWorst.objects.random(1)[0]
 	return render(request,
 				  'random_favorite.html',
 				  {'random_tweet': random_tweet,
 				   'new_upvote_count': new_upvote_count,
-				   'hidden': hidden,
-				   'nice_term': nice_term()})
+				   'visible': visible,
+				   'nice_term': nice_term()[0]})
 				   
 def vote_random(request, vote):
 # If user votes, adds to upvote count and displays new tweet.

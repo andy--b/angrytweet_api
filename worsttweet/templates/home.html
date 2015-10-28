@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
+{% block title %}
+<title>Mean Tweet Search</title>
+{% endblock %}
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-	<title>Meanest Tweet</title>
-	<link rel="shortcut icon" href="/static/bootstrap/images/favicon.ico"/>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-	<link href="/static/bootstrap/css/custom-style.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-<body>
-<h1>Enter a search term!</h1>
+{% block page_content %}
+<div align="center" class="page-header">
+	<h1>ENTER A SEARCH TERM</h1>
+</div>
 <form method="GET" action={% url "new_search" %}>
     <input name="search_text" id="search_text" placeholder="enter a search term" />
 	{% csrf_token %}
 </form>
-<a href={% url "view_random" %}><br>View a random favorite</a>
-<a href={% url "view_top" %}><br>View the top tweets of all time</a>
-
-</body>
-</html>
+{% endblock %}

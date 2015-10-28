@@ -1,23 +1,53 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html lang='en'>
-<head>
+{% block title %}
 	<title>Search Results</title>
-</head>
-<body>
+{% endblock %}
+
+{% block page_content %}
+<div align="center" class="page-header">
+	<h1>SEARCH RESULTS</h1>
+</div>
+
+<div class="container">
+<div class="jumbotron">
+  <div class="container" align="center">
+	<h2>
+		<a href = "http://twitter.com/{{ tweet.twitter_screen_name }}/">
+			@{{ tweet.user_screen_name }}</a>
+			had this to say about 
+	  <div class="top-search-term">{{ search_term }}</div>:
+	</h2>
+	  <blockquote class="twitter-tweet">
+		<div class="tweet-pic">
+		  <img src="{{ tweet.user_profile_image_url }}" align="left">
+		</div>
+		<div class="tweet-user-name" align="left">
+		  <h3>{{ tweet.user_name }}</h3>
+		</div>
+		<div class="twitter-screen-name" align="left">
+		<a  href="http://twitter.com/statuses/{{ tweet.id }}"
+		class="tweet-twitter-handle">
+		  <p>@{{ tweet.user_screen_name }} </p>
+		</a>
+		</div>
+		<div class="tweet-text">
+		  <p>{{ tweet.text }}</p>
+		</div>
+		<div class="tweet-followers">
+		  <p>This {{ nice_term }} has <b>{{ tweet.user_followers_count }} </b>
+			followers.</p>
+		</div>
+	  </blockquote>
+</div>
 	{% if newly_favorited %}
 		<h1>This search result for {{ search_term }} has been added to the favorites list.</h1>
 		{% if upvote_count == 1 %}
-		<p>You are the first person to like this post!</p>
+		<p>You are the first person to like this tweet!</p>
 		{% else %}
 		<p>{{ upvote_count }} people have liked this same tweet!</p>
 		{% endif %}
 	{% endif %}
-	<img src="{{ tweet.user_profile_image_url }}">
-<h1> Search results for {{ search_term }}.</h1>
-	<h1>@{{ tweet.user_screen_name }} says:</h1>
-	<h2>{{ tweet.text }}</h2>
-	<p>This {{ nice_term }} has {{ tweet.user_followers_count }} followers.</p>
 	<form method="POST" action="/mean/addfav/">
 		<input hidden name="tweet_id" value="{{ tweet.id }}"></input>
 		<input hidden name="tweet_text" value="{{ tweet.text }}"></input>
@@ -46,7 +76,7 @@
 			<button>View Previous</button>
 		{% endif %}
 		<input hidden name="next_prev" value="prev"></input>
-	</form>
-	<a href={% url "view_random" %}><br>View a random favorite</a>
-	<a href={% url "view_top" %}><br>View the top tweets of all time</a>
-</body>
+	</form>  
+	</div>
+</div>
+{% endblock %}

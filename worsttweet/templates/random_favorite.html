@@ -1,29 +1,60 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html lang='en'>
-<head>
+{% block title %}
 	<title>Random Mean Tweet</title>
-</head>
-<body>
-<h2 visibility: {{ hidden }}>Thanks for voting! That tweet now has a score of {{ new_upvote_count }}</h2>
-<img src="{{ random_tweet.user_profile_pic_url }}">
-<h1>Here is a mean tweet about {{ random_tweet.search_term }}:</h1>
-<h2>@{{ random_tweet.twitter_screen_name }} said:
-<p>{{ random_tweet.tweet_text }}</p>
-<p>This {{ nice_term }} has {{ random_tweet.user_followers_count }} followers.</p>
+{% endblock %}
+
+
+{% block page_content %}
+<div align="center" class="page-header">
+	<h1>FAVORITE TWEETS</h1>
+</div>
+{% if visible %}
+<h2>Thanks for voting! That tweet now has a score of {{ new_upvote_count }}</h2>
+{% endif %}
+
+<div class="container">
+<div class="jumbotron">
+  <div class="container" align="center">
+	<h2>
+		<a href = "http://twitter.com/{{ random_tweet.twitter_screen_name }}/">
+			@{{ random_tweet.twitter_screen_name }}</a>
+			had this to say about 
+	  <div class="top-search-term">{{ random_tweet.search_term }}</div>:
+	</h2>
+	  <blockquote class="twitter-tweet">
+		<div class="tweet-pic">
+		  <img src="{{ random_tweet.user_profile_pic_url }}" align="left">
+		</div>
+		<div class="tweet-user-name" align="left">
+		  <h3>{{ random_tweet.twitter_user_name }}</h3>
+		</div>
+		<div class="twitter-screen-name" align="left">
+		<a  href="http://twitter.com/statuses/{{ random_tweet.tweet_id }}"
+		class="tweet-twitter-handle">
+		  <p>@{{ random_tweet.twitter_screen_name }} </p>
+		</a>
+		</div>
+		<div class="tweet-text">
+		  <p>{{ random_tweet.tweet_text }}</p>
+		</div>
+		<div class="tweet-followers">
+		  <p>This {{ nice_term }} has <b>{{ random_tweet.user_followers_count }} </b>
+			followers.</p>
+		</div>
+	  </blockquote>
 <form method="POST" action="/mean/viewfav/upvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
-	<button>Like this!</button> 
+	<button>I Love It</button> 
 {% csrf_token %}
 </form>
+<button>I Don't Care, Show Me Another</button> 
 <form method="POST" action="/mean/viewfav/downvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
-	<button>Dislike this!</button> 
+	<button>I Hate It</button> 
 {% csrf_token %}
 </form>
-
-<a href={% url "view_random" %}><br>View a random favorite</a>
-<a href={% url "home" %}><br>Return Home</a>
-<a href={% url "view_top" %}><br>View the top tweets of all time</a>
-</body>
-</html>
+  </div>
+</div>
+</div>
+{% endblock %}

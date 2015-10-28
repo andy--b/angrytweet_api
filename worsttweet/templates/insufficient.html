@@ -1,10 +1,19 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html lang='en'>
-<head>
-	<title>Meanest Tweet</title>
-</head>
-<body>
-<h1>insufficient data</h1>
-</body>
-</html>
+{% block title %}
+	<title>No Results Found</title>
+{% endblock %}
+
+{% block page_content %}
+<div align="center" class="page-header">
+	<h1>ENTER A SEARCH TERM</h1>
+</div>
+<div class="container">
+	<div class="jumbotron">
+	  <div class="container" align="center">
+		<h2>Sorry, there were no tweets angry enough for your search!</h1>
+		<h3><a href={% url "home" %}>Try Again</a></h3>
+	  </div>
+	</div>
+</div>
+{% endblock%}
