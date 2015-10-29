@@ -9,7 +9,7 @@ def nice_term(sample_size=1):
 		'person, who probably has a secret second butt,',
 		'representative of the same species as you',
 		'eligible voter', 'Copernican groundbreaker',
-		'future president' ]
+		'future president', 'beautiful bastard', 'big ball of joy']
 	random_index = sample(range(0, len(terms)), sample_size)
 	nice_list = []
 	for i in random_index:

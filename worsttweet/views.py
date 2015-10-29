@@ -60,9 +60,11 @@ def search_result(request, formatted_url):
 		return redirect('/insufficient/')
 	try:
 	# Change page index based on whether user hit "next/prev" button
-		if request.GET["next_prev"] == 'next':
+		if request.GET["next_prev"] == 'next' and \
+		request.session['_tweet_index'] + 1 < len(tweets):
 			request.session['_tweet_index'] += 1
-		elif request.GET["next_prev"] == 'prev':
+		elif request.GET["next_prev"] == 'prev' and \
+		request.session['_tweet_index'] > 0:
 			request.session['_tweet_index'] -= 1
 	except:
 		pass

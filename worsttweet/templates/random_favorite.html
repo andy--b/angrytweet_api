@@ -9,9 +9,6 @@
 <div align="center" class="page-header">
 	<h1>FAVORITE TWEETS</h1>
 </div>
-{% if visible %}
-<h2>Thanks for voting! That tweet now has a score of {{ new_upvote_count }}</h2>
-{% endif %}
 
 <div class="container">
 <div class="jumbotron">
@@ -43,17 +40,21 @@
 			followers.</p>
 		</div>
 	  </blockquote>
-<form method="POST" action="/mean/viewfav/upvote/">
+<br>
+<form class="vote-button" method="POST" action="/mean/viewfav/downvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
-	<button>I Love It</button> 
+	<button class="red-button">I Hate It</button>
 {% csrf_token %}
 </form>
-<button>I Don't Care, Show Me Another</button> 
-<form method="POST" action="/mean/viewfav/downvote/">
+<a href="."><button class="red-button">I Don't Care, Show Me Another</button></a>
+<form class="vote-button" method="POST" action="/mean/viewfav/upvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
-	<button>I Hate It</button> 
+	<button class="red-button">I Love It</button>
 {% csrf_token %}
 </form>
+{% if visible %}
+<h2>Thanks for voting! That tweet now has a score of {{ new_upvote_count }}</h2>
+{% endif %}
   </div>
 </div>
 </div>

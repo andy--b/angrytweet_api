@@ -13,7 +13,7 @@
 <div class="jumbotron">
   <div class="container" align="center">
 	<h2>
-		<a href = "http://twitter.com/{{ tweet.twitter_screen_name }}/">
+		<a href = "http://twitter.com/{{ tweet.user_screen_name }}/">
 			@{{ tweet.user_screen_name }}</a>
 			had this to say about 
 	  <div class="top-search-term">{{ search_term }}</div>:
@@ -39,16 +39,14 @@
 			followers.</p>
 		</div>
 	  </blockquote>
-</div>
-	{% if newly_favorited %}
-		<h1>This search result for {{ search_term }} has been added to the favorites list.</h1>
-		{% if upvote_count == 1 %}
-		<p>You are the first person to like this tweet!</p>
-		{% else %}
-		<p>{{ upvote_count }} people have liked this same tweet!</p>
+	<br>
+	<form class="vote-button" method="GET" action='.'>
+		{% if prev_button_visible %}
+			<button id="bg" class="red-button">View Previous</button>
 		{% endif %}
-	{% endif %}
-	<form method="POST" action="/mean/addfav/">
+		<input hidden name="next_prev" value="prev"></input>
+	</form> 
+	<form class="vote-button" method="POST" action="/mean/addfav/">
 		<input hidden name="tweet_id" value="{{ tweet.id }}"></input>
 		<input hidden name="tweet_text" value="{{ tweet.text }}"></input>
 		<input hidden name="twitter_user_id" value="{{ tweet.user_id }}"></input>
@@ -61,22 +59,25 @@
 		<input hidden name="user_followers_count" 
 		value="{{ tweet.user_followers_count }}"></input>
 	{% if favorite_button_visible %}
-		<button>Add to Favorites</button>
+	<button class="red-button">Add To Favorites</button>
 	{% endif %}
 	{% csrf_token %}
 	</form>
-	<form method="GET" action='.'>
+		<form class="vote-button" method="GET" action='.'>
 		{% if next_button_visible %}
-			<button>View Next</button>
+			<button class="red-button">View Next</button>
 		{% endif %}
 		<input hidden name="next_prev" value="next"></input>
 	</form>
-	<form method="GET" action='.'>
-		{% if prev_button_visible %}
-			<button>View Previous</button>
+	{% if newly_favorited %}
+		<h2>This search result for {{ search_term }} has been added to the favorites list.</h1>
+		{% if upvote_count == 1 %}
+		<p>You are the first person to like this tweet!</p>
+		{% else %}
+		<p>{{ upvote_count }} people have liked this same tweet!</p>
 		{% endif %}
-		<input hidden name="next_prev" value="prev"></input>
-	</form>  
+	{% endif %}
+	</div> 
 	</div>
 </div>
 {% endblock %}

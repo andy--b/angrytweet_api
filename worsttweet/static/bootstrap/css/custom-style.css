@@ -1,6 +1,27 @@
+::-webkit-input-placeholder {
+   text-align:center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align:center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align:center;  
+}
+
+:-ms-input-placeholder {  
+   text-align:center; 
+}
+
+#top {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .bs-component{
 	position: fixed;
-	top: 0;
+ 	top: 0;
 	left: 0;
 	right: 0;
 }
@@ -116,4 +137,34 @@ blockquote.twitter-tweet a:focus {
 
 .twitter-tweet .tweet-text {
 	margin-bottom: 10px;
+}
+
+.vote-button {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: inline-block;
+}
+
+.back-to-top h3 a {
+	padding-bottom: 10px;
+}
+
+.red-button {
+	height: 55px;
+	border-radius: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 5px;
+	background-color: #AD3100;
+	display: inline-block;
+	text-align: center;
+	font-size: 18px;
+	color: white;
+	vertical-align: center;
+}
+
+a{
+	color: #AD3100;
 }

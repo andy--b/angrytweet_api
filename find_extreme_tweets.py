@@ -15,7 +15,7 @@ def find_most_extreme(data, extreme_words):
 	query = bytes("|".join(extreme_words), 'utf-8')
 	min_addr_val = [0, 0]
 	for i, t in enumerate(data):
-		extreme_count = len(re.findall(query, t.text.encode('utf8')))
+		extreme_count = len(re.findall(query, t.text.encode('utf-8')))
 		if extreme_count > min_addr_val[1]:
 			extreme_tweets[min_addr_val[0]] = extreme_count
 			extreme_tweets[min_addr_val[0] + 5] = t.id

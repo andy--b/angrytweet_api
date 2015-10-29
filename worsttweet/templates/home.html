@@ -6,10 +6,28 @@
 
 {% block page_content %}
 <div align="center" class="page-header">
-	<h1>ENTER A SEARCH TERM</h1>
+	<h1>WELCOME TO THE MEAN TWEETS</h1>
 </div>
-<form method="GET" action={% url "new_search" %}>
-    <input name="search_text" id="search_text" placeholder="enter a search term" />
-	{% csrf_token %}
-</form>
+<div class="container">
+  <div class="jumbotron">
+	<div class="container">
+		<h3 align="justify">There are 7 billion people on earth, each lovely in their own way.
+		Twitter has made it possible for the lovliest of these folks to share
+		 their informed, kind thoughts in the most public of forums.</h3>
+		 <h2 align="center"><b>Find out what they have to say.</b></h2>
+	</div>
+	<div class="home-text" align
+	<div class="form-group">
+	  <form method="GET" action={% url "new_search" %}>
+		<input class="form-control input-lg" name = "search_text" 
+		type="text" id="inputLarge" placeholder="Enter a Search Term">
+		</input>
+		{% csrf_token %}
+	  </form> 
+	</div></div>
+	<div class="container" align="center">
+		<a  href={% url "home" %}> <img src="/static/images/logo.png"> </a>
+	</div>
+  </div>
+ </div>
 {% endblock %}
