@@ -69,14 +69,14 @@
 				  <span class="icon-bar"></span>
 				  <span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href={% url "home" %}>Mean Tweets</a>
+				<a id="nav-home" class="navbar-brand" href={% url "home" %}>Mean Tweets</a>
 			  </div>
 
 			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-				  <li><a href={% url "home" %}>Search</a></li>
-				  <li><a href={% url "view_random" %}>Favorites</a></li>
-				  <li><a href={% url "view_top" %}>Top 10</a></li>
+				  <li><a id="nav-search" href={% url "home" %}>Search</a></li>
+				  <li><a id="nav-random" href={% url "view_random" %}>Favorites</a></li>
+				  <li><a id="nav-top" href={% url "view_top" %}>Top 10</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				  <li><a href="http://andybowling.com">&#169 Andy Bowling</a></li>
