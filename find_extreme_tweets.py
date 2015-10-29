@@ -32,7 +32,7 @@ def extreme_tweets(search_term):
 	key_extreme_word = 'fuck'
 	extreme_words = ['shit', 'piss', 'crap', 'damn', 'idiot', 'stupid', 'fag',
 					'pussy', 'dick', 'jerk', 'cunt', 'cock', 'dirtbag', 'worthless',
-					'waste', 'dumb', 'retarded', 'fuk', 'sht', 'dam']
+					'waste', 'dumb', 'retarded', 'fuk', 'fuc', 'sht', 'dam']
 					
 	extreme_words_string = ""
 	for i in extreme_words[:-1]:

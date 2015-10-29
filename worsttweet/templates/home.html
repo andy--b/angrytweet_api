@@ -14,9 +14,8 @@
 		<h3 align="justify">There are 7 billion people on earth, each lovely in their own way.
 		Twitter has made it possible for the lovliest of these folks to share
 		 their informed, kind thoughts in the most public of forums.</h3>
-		 <h2 align="center"><b>Find out what they have to say.</b></h2>
+		 <h2 align="center"><b>Find out what they have to say.</b></h2><br>
 	</div>
-	<div class="home-text" align
 	<div class="form-group">
 	  <form method="GET" action={% url "new_search" %}>
 		<input class="form-control input-lg" name = "search_text" 
@@ -24,10 +23,18 @@
 		</input>
 		{% csrf_token %}
 	  </form> 
-	</div></div>
 	<div class="container" align="center">
+	<br>
+	<br>
+	<h3>Or check out the nicest, most cheerful tweets others have found:</h3>
+	<br>
+	<a href= {% url "view_random" %}><button class="red-button" style="margin-right:50px">View Favorite Tweets</button></a>
+	<a href= {% url "view_top" %}><button class="red-button">View Top Tweets Of All Time</button></a>
+	</div>
+	<div class="container" align="center" style="margin-top:40px">
 		<a  href={% url "home" %}> <img src="/static/images/logo.png"> </a>
 	</div>
+	</div></div>
   </div>
  </div>
 {% endblock %}
