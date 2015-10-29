@@ -33,7 +33,7 @@
 		</a>
 		</div>
 		<div class="tweet-text">
-		  <p>{{ random_tweet.tweet_text }}</p>
+		  <p id="random-tweet-text">{{ random_tweet.tweet_text }}</p>
 		</div>
 		<div class="tweet-followers">
 		  <p>This {{ nice_term }} has <b>{{ random_tweet.user_followers_count }} </b>
@@ -46,7 +46,7 @@
 	<button class="red-button">I Hate It</button>
 {% csrf_token %}
 </form>
-<a href="."><button class="red-button">I Don't Care, Show Me Another</button></a>
+<a href="."><button class="red-button" id="random-another-btn">I Don't Care, Show Me Another</button></a>
 <form class="vote-button" method="POST" action="/mean/viewfav/upvote/">
 	<input hidden name="tweet_id" value="{{ random_tweet.tweet_id }}"></input>
 	<button class="red-button">I Love It</button>

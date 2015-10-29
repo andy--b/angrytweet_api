@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block page_content %}
-<div align="center" class="page-header">
+<div align="center" class="page-header" id="header-text">
 	<h1>SEARCH RESULTS</h1>
 </div>
 
@@ -31,7 +31,7 @@
 		  <p>@{{ tweet.user_screen_name }} </p>
 		</a>
 		</div>
-		<div class="tweet-text">
+		<div class="tweet-text" id="result-tweet-text">
 		  <p>{{ tweet.text }}</p>
 		</div>
 		<div class="tweet-followers">
@@ -42,7 +42,7 @@
 	<br>
 	<form class="vote-button" method="GET" action='.'>
 		{% if prev_button_visible %}
-			<button id="bg" class="red-button">View Previous</button>
+			<button id="result-previous" class="red-button">View Previous</button>
 		{% endif %}
 		<input hidden name="next_prev" value="prev"></input>
 	</form> 
@@ -65,7 +65,7 @@
 	</form>
 		<form class="vote-button" method="GET" action='.'>
 		{% if next_button_visible %}
-			<button class="red-button">View Next</button>
+			<button id="result-next" class="red-button">View Next</button>
 		{% endif %}
 		<input hidden name="next_prev" value="next"></input>
 	</form>
