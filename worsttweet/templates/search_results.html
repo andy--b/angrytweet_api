@@ -77,6 +77,10 @@
 		<p>{{ upvote_count }} people have liked this same tweet!</p>
 		{% endif %}
 	{% endif %}
+	<div class="container">
+		<h3><a href={% url "home" %}>Search For Something Else</a> or
+		<a href={% url "view_random" %}> View Tweets Others Have Loved</a></h3>
+	</div>
 	</div> 
 	</div>
 </div>
