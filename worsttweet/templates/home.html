@@ -19,7 +19,7 @@
 	<div class="form-group">
 	  <form method="GET" action={% url "new_search" %}>
 		<input class="form-control input-lg" name = "search_text" 
-		type="text" id="inputLarge" placeholder="Enter A Search Term">
+		type="text" id="inputLarge" placeholder="Enter A Search (Like '{{ s1 }}', '{{ s2 }}', etc.)">
 		</input>
 		{% csrf_token %}
 	  </form> 
@@ -28,7 +28,7 @@
 	<br>
 	<h3>Or check out the nicest, most cheerful tweets others have found:</h3>
 	<br>
-	<a href= {% url "view_random" %}><button id="home-view-fav" class="red-button" style="margin-right:50px">View Favorite Tweets</button></a>
+	<a href= {% url "view_random" %}><button id="home-view-fav" class="red-button">View Favorite Tweets</button></a>
 	<a href= {% url "view_top" %}><button id="home-view-top" class="red-button">View Top Tweets Of All Time</button></a>
 	</div>
 	<div class="container" align="center" style="margin-top:40px">

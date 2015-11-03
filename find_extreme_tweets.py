@@ -59,7 +59,7 @@ def extreme_tweets(search_term):
 			selected_tweets.append({
 				'user_screen_name': tweet.user.screen_name,
 				'user_profile_image_url': tweet.user.profile_image_url,
-				'text': tweet.text,
+				'text': tweet.text.replace('&amp;','&'),
 				'user_followers_count': tweet.user.followers_count,
 				'id': tweet.id,
 				'user_id': tweet.user.id,

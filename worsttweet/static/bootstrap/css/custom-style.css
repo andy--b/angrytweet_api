@@ -1,17 +1,21 @@
-::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder {
    text-align:center;
+   color: #353535;
 }
 
-:-moz-placeholder { /* Firefox 18- */
+.form-control:-moz-placeholder { /* Firefox 18- */
    text-align:center;  
+   color: #353535;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+.form-control::-moz-placeholder {  /* Firefox 19+ */
    text-align:center;  
+   color: #353535;
 }
 
-:-ms-input-placeholder {  
+.form-control:-ms-input-placeholder {  
    text-align:center; 
+   color: #353535;
 }
 
 #top {
@@ -160,10 +164,13 @@ blockquote.twitter-tweet a:focus {
 	border-radius: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
+	margin-left: 25px;
+	margin-right: 25px;
 	margin-top: 5px;
 	background-color: #AD3100;
 	display: inline-block;
 	text-align: center;
+	vertical-align: center;
 	font-size: 18px;
 	color: white;
 	vertical-align: center;

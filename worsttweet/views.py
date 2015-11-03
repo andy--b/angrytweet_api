@@ -11,6 +11,7 @@ from worsttweet.models import FavoriteWorst
 # User modules
 from nice_terms import nice_term
 from find_extreme_tweets import extreme_tweets
+from search_examples import search_examples
 
 def insufficient(request):
 # Return this page if search term doesn't generate any results
@@ -18,7 +19,10 @@ def insufficient(request):
 
 def home_page(request):
 # Landing
-	return render(request, 'home.html')
+	s1, s2 = search_examples(2)
+	to_render = {'s1': s1,
+				 's2': s2}
+	return render(request, 'home.html', to_render)
 
 def new_search(request):
 # When user submits search, they are sent to this view.
