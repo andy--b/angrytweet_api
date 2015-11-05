@@ -53,7 +53,7 @@
 {% csrf_token %}
 </form>
 <h4>Share this fine tweet with your friends: <input style="width:30%; font-size:75%" readonly="readonly" 
-	value="http://andybowling.com/mean/view/{{ random_tweet.tweet_id }}/"></input></h4>
+	value="http://meantweet.andybowling.com/mean/view/{{ random_tweet.tweet_id }}/"></input></h4>
 {% if visible %}
 <h2>Thanks for voting! That tweet now has a score of {{ new_upvote_count }}</h2>
 {% endif %}
