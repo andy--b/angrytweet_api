@@ -16,4 +16,5 @@ urlpatterns = [
 	url(r'fav/$', views.view_random, name='view_random'),
 	url(r'fav/(up|down)vote/$', views.vote_random, name='vote_random'),
 	url(r'top/$', views.view_top, name='view_top'),
+	url(r'view/(\d+)/$', views.view_by_id, name='view_by_id'),
 ]

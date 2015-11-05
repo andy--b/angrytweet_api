@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Tweet About {{ tweet.search_term }}</title>
+{% endblock %}
+
+{% block page_content %}
+<div align="center" class="page-header" id="header-text">
+	<h1>MEAN TWEETS</h1>
+</div>
+
+<div class="container">
+<div class="jumbotron">
+  <div class="container" align="center">
+	<h2>
+		<a href = "http://twitter.com/{{ tweet.twitter_screen_name }}/">
+			@{{ tweet.twitter_screen_name }}</a>
+			had this to say about 
+	  <div class="top-search-term" id="search-result-term">{{ tweet.search_term }}</div>:
+	</h2>
+	  <blockquote class="twitter-tweet">
+		<div class="tweet-pic">
+		  <img src="{{ tweet.user_profile_pic_url }}" align="left">
+		</div>
+		<div class="tweet-user-name" align="left">
+		  <h3>{{ tweet.twitter_user_name }}</h3>
+		</div>
+		<div class="twitter-screen-name" align="left">
+		<a  href="http://twitter.com/statuses/{{ tweet.id }}"
+		class="tweet-twitter-handle">
+		  <p>@{{ tweet.twitter_screen_name }} </p>
+		</a>
+		</div>
+		<div class="tweet-text" id="result-tweet-text">
+		  <p>{{ tweet.tweet_text }}</p>
+		</div>
+		<div class="tweet-followers">
+		  <p>This {{ nice_term }} has <b>{{ tweet.user_followers_count }} </b>
+			followers.</p>
+		</div>
+	  </blockquote>
+	<br>
+	<h5><br>Share this fine tweet with your friends: <input style="width:30%; font-size:75%" readonly="readonly" 
+		value="http://andybowling.com/mean/view/{{ tweet.id }}/"></input></h5>
+	<div class="container">
+		<h3><a href={% url "home" %}>Search For Passionate Tweets</a> or
+		<a href={% url "view_random" %}> View Tweets Others Have Loved</a></h3>
+	</div>
+	</div> 
+	</div>
+</div>
+{% endblock %}

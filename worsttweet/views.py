@@ -180,6 +180,14 @@ def view_top(request):
 	return render(request,
 				  'top_tweets.html',
 				  {'top_tweets': to_render})
+				  
+def view_by_id(request, tw_id):
+# Displays tweet by id number, serves as a permalink to tweets
+	tweet = FavoriteWorst.objects.get(tweet_id = tw_id)
+	return render(request,
+				  'view_by_id.html',
+				  {'tweet': tweet,
+				  'nice_term': nice_term()[0]})
 		  
 def api_random(request, sample_size=1):
 # API call to get random tweets (up to 10)
