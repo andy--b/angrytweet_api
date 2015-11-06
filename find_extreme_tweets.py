@@ -25,7 +25,7 @@ def find_most_extreme(data, extreme_words):
 
 def extreme_tweets(search_term):
 	# Two APIs to increase rate limit
-	which_api = keys[randint(0,1)]
+	which_api = keys[randint(0,len(keys)-1)]
 	consumer_key = which_api['consumer_key']
 	consumer_secret = which_api['consumer_secret']
 	access_token = which_api['access_token']
