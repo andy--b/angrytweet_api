@@ -1,8 +1,8 @@
 import re
 import tweepy
-from random import shuffle
+from random import shuffle, randint
 from tweepy import OAuthHandler
-from secret_keys import *
+from secret_keys import keys
 							
 def run_query(search_term, extreme_words_string, api):
 	query = search_term + ' -RT AND ' + extreme_words_string
@@ -23,7 +23,13 @@ def find_most_extreme(data, extreme_words):
 			min_addr_val[1] = min(extreme_tweets[0:5])
 	return extreme_tweets[5:]
 
-def extreme_tweets(search_term):	
+def extreme_tweets(search_term):
+	# Two APIs to increase rate limit
+	which_api = keys[randint(0,1)]
+	consumer_key = which_api['consumer_key']
+	consumer_secret = which_api['consumer_secret']
+	access_token = which_api['access_token']
+	access_secret = which_api['access_secret']
 	auth = OAuthHandler(consumer_key, consumer_secret)
 	auth.set_access_token(access_token, access_secret)
 
